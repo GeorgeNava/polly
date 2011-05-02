@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div id="content">
+  
+  <div class="nav"><a href="{{root}}/admin">Administrative Panel</a> &raquo; <a href="{{root}}/admin/editpoll/{{poll.pollid}}">Edit poll</a></div>
+
+  {% include "admin_side.html"%}
+  
+  <div id="main">
+
+    <h2>Edit poll</h2>
+    {% if warn %}{% for item in warn %}<li class="warn">{{item}}</li>{% endfor %}{% endif %}
+    <form id="editpoll" method="post" class="admin_form">
+      <input type="hidden" id="slots" name="slots" value="{{poll.slots}}">
+      <li id="question"><label><b>Question:</b></label> <input type="textbox" name="title" value="{{poll.title}}" class="w400"></li>
+      <li><label>Image url:</label> <input type="textbox" name="image" value="{{poll.image|default_if_none:""}}" class="w400"> <small>(optional)</small></li>
+      <br>
+      <ul id="options">
+      {% for item in options %}
+        <li><label>Option #{{item.position}}</label> <input type="hidden" name="optionid{{item.position}}" value="{{item.optionid}}"><input type="textbox" name="option{{item.position}}" value="{{item.title}}" class="w300"></li>
+      {% endfor %}
+      </ul>
+      <li><label>&nbsp;</label> <button type="button" onclick="add(); return false;">Add more options</button></li>
+      <br>
+      <fieldset id="settings">
+        <legend>Poll Settings:</legend>
+        <li><label class="noformat" for="isopen"><input type="checkbox" name="isopen" id="isopen" {{poll.isopen}}> Poll is open <i>(uncheck to prevent voting)</i></label></li>
+        <li><label class="noformat" for="multi" ><input type="checkbox" name="single" id="single" {{poll.single}}> Single selection <i>(uncheck for multiple selection)</i></label></li>
+        <li><label class="noformat" for="block" ><input type="checkbox" name="block"  id="block"  {{poll.block}} > Block multiple votes <i>(only one vote per IP address)</i></label></li>
+        <li><label class="noformat" for="close" ><input type="checkbox" name="close"  id="close"  {{poll.close}} > Close poll on:</label> <input type="textbox" name="closeon" value='{{poll.closeon|date:"Y.m.d h:i"}}'></li>
+      </fieldset>
+      <li><label>&nbsp;</label><button class="abutton"><b>Save Changes</b></button></li>
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+var slots={{poll.slots}}
+
+function add(event){
+  var name,li;
+  slots+=1
+  li=document.createElement('li')
+  li.innerHTML='<label>Option #{0}</label> <input type="hidden" name="optionid{0}" value=""><input type="textbox" name="option{0}" value="" class="w300">'.parse([slots])
+  $('options').appendChild(li)
+  $('slots').value=slots
+}
+
+function $(id){ return document.getElementById(id) }
+
+String.prototype.parse=function(data){
+  var str=this.toString();
+  for(var i in data){ str=str.replace(new RegExp("{("+i+")}","g"),data[i]); }
+  return str;
+}
+</script>
+{% endblock %}

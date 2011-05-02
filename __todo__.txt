@@ -1,0 +1,17 @@
+TODO:
+
+- if single selection use radio, else use checkbox, cast votes accordingly
+
+x admin panel
+  x current poll
+  x new poll
+  x view poll
+  x edit poll
+    x save changes
+    x close poll
+    x delete poll
+  x polls archive
+  x latest votes
+  x load sample poll
+
+x embed poll in iframe: <iframe id="polly" src="/polly"></iframe>

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div id="content">
+  
+  <div class="nav"><a href="{{root}}/admin">Administrative Panel</a></div>
+
+  {% include "admin_side.html"%}
+  
+  <div id="main">
+
+    <h3>Latest polls</h3>
+    <table class="list">
+    {% for item in polls %}
+      <tr><td class="time">{{item.created|minitime|safe}}</td><td><a href="{{root}}/admin/viewpoll/{{item.pollid}}">{{item.title}}</a></td><td>{{item.statusText}}</td><td align="right">{{item.counter}} vote{{item.counter|pluralize}}</td></tr>
+    {% empty %}
+      <tr><td colspan="4">No polls registered yet</td></tr>
+    {% endfor %}
+    </table>
+
+    <hr class="sep">
+    
+    <h3>Latest votes</h3>
+    <table class="list">
+    {% for item in votes %}
+      <tr><td class="time">{{item.created|minitime|safe}}</td><td>{{item.poll|ellipsis|safe}}</td><td>{{item.option|ellipsis|safe}}</td><td>{{item.ipaddress}}</td></tr>
+    {% empty %}
+      <tr><td colspan="4">No votes casted yet</td></tr>
+    {% endfor %}
+    </table>
+
+  </div>
+</div>
+{% endblock %}

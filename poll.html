@@ -1,0 +1,61 @@
+<html>
+<head>
+<link rel="stylesheet" href="{{root}}/style.css">
+</head>
+<body onload="autoHeight()">
+  <div id="poll">
+    <div id="pollbox">
+    {% if poll %}
+        <h1 class="polltitle">{{poll.title}}</h1>
+        {% if poll.image %}<div><img src="{{poll.image}}"></div>{% endif %}
+        {% if poll.showpoll %}
+          <form method="post">
+            <input type="hidden" name="pollid" value="{{poll.pollid}}">
+            {% for item in options %}
+            <li class="polloption"><input type="radio" name="option" value="{{item.optionid}}"> <span class="pollanswer">{{item.title}}</span></li>
+            {% endfor %}
+            <div class="pollactions">
+              <input type="submit" value="Vote">
+              <button onclick="viewResults('{{poll.pollid}}'); return false;">View results</button>
+            </div>
+          </form>
+        {% else %}
+          {% for item in options %}
+            <li class="pollresult">{{item.title}} <span class="pollvotes">({{item.counter}} votes - {{item.percent|floatformat:0}}%)</span></li>
+            <div class="pollcount"><div class="pollbar" style="width:{{item.percent|floatformat:2}}%"></div></div>
+          {% endfor %}
+          <div class="pollactions">
+            {% if poll.canvote %}
+              <button onclick="viewPoll('{{poll.pollid}}'); return false;">Back to the poll</button>
+            {% else %}
+              {% if poll.status > 1 %}
+                <p><b>This poll is closed</b></p>
+              {% else %}
+                <p><b>Thanks for voting!</b></p>
+              {% endif %}
+            {% endif %}
+          </div>
+        {% endif %}
+    {% else %}
+      <div class="nopoll">No polls available.</div>
+    {% endif %}
+    </div><!-- pollbox -->
+  </div><!-- poll -->
+<script>
+function viewResults(id){
+  if(!id){ return false }
+  window.location.href="{{root}}/r/"+id
+  return false
+}
+function viewPoll(id){
+  if(!id){ return false }
+  window.location.href="{{root}}/v/"+id
+  return false
+}
+
+function autoHeight() {
+  parent.document.getElementById('polly').height = document['body'].offsetHeight;
+}
+</script>
+</body>
+</html>

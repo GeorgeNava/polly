@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div id="content">
+  
+  <div class="nav"><a href="{{root}}/admin">Administrative Panel</a> &raquo; <a href="{{root}}/admin/votes">Latest Votes</a></div>
+
+  {% include "admin_side.html"%}
+  
+  <div id="main">
+
+    <h3>Latest votes</h3>
+    <table class="list">
+    {% for item in votes %}
+      <tr><td class="time">{{item.created|minitime|safe}}</td><td>{{item.poll|ellipsis|safe}}</td><td>{{item.option|ellipsis|safe}}</td><td>{{item.ipaddress}}</td></tr>
+    {% empty %}
+      <tr><td colspan="4">No votes casted yet</td></tr>
+    {% endfor %}
+    </table>
+
+  </div>
+</div>
+{% endblock %}

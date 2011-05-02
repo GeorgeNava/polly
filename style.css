@@ -1,0 +1,22 @@
+body{margin:0; padding:0;}
+#poll{font:normal 12px sans-serif;}
+#poll li{list-style:none;}
+#poll input[type="radio"]{margin:0 3px 0 0;}
+#pollbox{margin-top:12px;}
+.polltitle{font-weight:bold; font-size:14px;}
+.polloption{margin:8px 0;}
+.pollcheck{}
+.pollanswer{}
+.pollresult{margin:8px 0 0 0;}
+.pollvotes{color:#888;}
+.pollcount{}
+.pollbar{min-width:3px; height:12px; background:url(/polly/pollbar.jpg) top left repeat-x; border-radius:0 6px 6px 0;}
+.pollbar{-webkit-border-radius:0 6px 6px 0; -moz-border-radius:0 6px 6px 0;}
+.pollactions{margin-top:12px;}
+.pollbutton{}
+#nopoll{}
+
+
+/* CUSTOM STYLES */
+.polltitle{font:bold 1.4em Arial; color:#666; letter-spacing:-0.04em; text-shadow:1px 1px 1px #CCC; -moz-text-shadow:1px 1px 1px #CCC;}
+

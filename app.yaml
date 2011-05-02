@@ -1,0 +1,20 @@
+handlers:
+
+- url: /polly/style.css
+  static_files: polly/style.css
+  upload: polly/style.css
+
+- url: /polly/admin.css
+  static_files: polly/admin.css
+  upload: polly/admin.css
+
+- url: /polly/pollbar.jpg
+  static_files: polly/pollbar.jpg
+  upload: polly/pollbar.jpg
+
+- url: /polly/admin.*
+  script: polly/admin.py
+  login: admin
+
+- url: /polly.*
+  script: polly/poll.py
