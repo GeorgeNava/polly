@@ -14,11 +14,11 @@ To show polls in your web page or blog just add this line to your sidebar:
 
     <iframe id="polly" src="/polly">
 
-and that's it! The latest poll will show up automatically in your web page. If you want to show a particular poll, specify its ID like this:
+and that's it! The latest poll will show up automatically in your web page everytime you create a new poll. If you want to show a particular poll, just specify its ID like this:
 
     <iframe id="polly" src="/polly/v/{pollid}">
 
-Simpler impossible. We hope you enjoy POLLY as much as we do. Polls are by default made to fit in 300px and have a basic style which can be customized to your taste changing the style.css stylesheet found in POLLY's folder.
+Simpler impossible. We hope you enjoy POLLY as much as we do. Polls are by default made to fit in 300px and have a basic style which can be customized to your taste changing the stylesheet style.css found in POLLY's folder.
 
 POLLY is an ongoing project with many more features coming along. Remember to check back once in a while for updates, or fork it if you want to improve it yourself.
 
