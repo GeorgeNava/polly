@@ -12,13 +12,13 @@ That's it! It should work flawlessly. To try it out, just point your browser to 
 
 To show polls in your web page or blog just add this to your sidebar:
 
-<iframe id="polly" src="/polly">
+    <iframe id="polly" src="/polly">
 
 and that's it! The latest poll will show up automatically in your web page.
 
 If you want to show a particular poll, specify its ID liek this:
 
-<iframe id="polly" src="/polly/v/{pollid}">
+    <iframe id="polly" src="/polly/v/{pollid}">
 
 Simpler impossible. We hope you enjoy POLLY as much as we do.
 
