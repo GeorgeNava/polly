@@ -39,8 +39,10 @@
     {% else %}
       <div class="nopoll">No polls available.</div>
     {% endif %}
+      <div class="pollfoot"><a href="https://github.com/GeorgeNava/polly" target="_blank">&copy; {% now "Y" %} Polls by Polly.</a></div>
     </div><!-- pollbox -->
   </div><!-- poll -->
+
 <script>
 function viewResults(id){
   if(!id){ return false }
@@ -57,5 +59,6 @@ function autoHeight() {
   parent.document.getElementById('polly').height = document['body'].offsetHeight;
 }
 </script>
+
 </body>
 </html>
