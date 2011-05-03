@@ -237,6 +237,20 @@ def newVote(pollid,optionid,ipaddress):
   countVote(pollid,optionid)
   return rec
 
+def manyVotes(pollid,options,ipaddress):
+  all=[]
+  for id in options:
+    key = newKey()
+    rec = PollsVotes(key_name=key)
+    rec.voteid    = key
+    rec.optionid  = id
+    rec.pollid    = pollid
+    rec.ipaddress = ipaddress
+    rec.isvalid   = 1
+    all.append(rec)
+  db.put(all)
+  countVotes(pollid,options)
+
 def getVotes(n=10):
   recs = PollsVotes.all().order('-created').fetch(n)
   return recs
@@ -246,13 +260,28 @@ def getVotesByPoll(pollid,n=999):
   return recs
 
 def countVote(pollid,optionid):
+  poll=PollsArchive.get_by_key_name(pollid)
+  if not poll: return False
   option=PollsOptions.get_by_key_name(optionid)
   if not option: return False
   option.counter+=1
-  poll=PollsArchive.get_by_key_name(pollid)
-  if not poll: return False
   poll.counter+=1
   db.put([poll,option])
+  return True
+
+def countVotes(pollid,options):
+  poll=PollsArchive.get_by_key_name(pollid)
+  if not poll: return False
+  n=0
+  all=[poll]
+  for id in options:
+    option=PollsOptions.get_by_key_name(id)
+    if option: 
+      option.counter+=1
+      n+=1
+      all.append(option)
+  poll.counter+=n
+  db.put(all)
   return True
 
 def alreadyVoted(pollid,ipaddress):

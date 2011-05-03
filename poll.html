@@ -11,15 +11,21 @@
         {% if poll.showpoll %}
           <form method="post">
             <input type="hidden" name="pollid" value="{{poll.pollid}}">
-            {% for item in options %}
-            <li class="polloption"><input type="radio" name="option" value="{{item.optionid}}"> <span class="pollanswer">{{item.title}}</span></li>
-            {% endfor %}
+            {% if poll.type %}
+              {% for item in options %}
+              <li class="polloption"><input type="checkbox" name="option" value="{{item.optionid}}"> <span class="pollanswer">{{item.title}}</span></li>
+              {% endfor %}
+            {% else %}
+              {% for item in options %}
+              <li class="polloption"><input type="radio" name="option" value="{{item.optionid}}"> <span class="pollanswer">{{item.title}}</span></li>
+              {% endfor %}
+            {% endif %}
             <div class="pollactions">
               <input type="submit" value="Vote">
               <button onclick="viewResults('{{poll.pollid}}'); return false;">View results</button>
             </div>
           </form>
-        {% else %}
+        {% else %}{# show results #}
           {% for item in options %}
             <li class="pollresult">{{item.title}} <span class="pollvotes">({{item.counter}} votes - {{item.percent|floatformat:0}}%)</span></li>
             <div class="pollcount"><div class="pollbar" style="width:{{item.percent|floatformat:2}}%"></div></div>

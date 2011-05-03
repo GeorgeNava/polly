@@ -1,6 +1,7 @@
 TODO:
 
-- if single selection use radio, else use checkbox, cast votes accordingly
+- upload to github and appengine
+x if single selection use radio, else use checkbox, cast votes accordingly
 
 x admin panel
   x current poll

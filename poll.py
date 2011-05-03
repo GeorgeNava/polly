@@ -29,12 +29,21 @@ class ShowPoll(app.request):
 
   def post(self,id):
     form=self.getForm()
-    optionid=form.get('option','')
-    if optionid:
-      models.newVote(id,optionid,self.ipaddress)
-      self.redirect(app.root+'/r/'+id)
+    poll=models.getPoll(id)
+    # TODO: multiple selection
+    ok=False
+    if poll.type==1:
+      options=self.request.get_all('option')
+      if options:
+        models.manyVotes(id,options,self.ipaddress)
+        ok=True
     else:
-      self.redirect(app.root+'/v/'+id)
+      optionid=form.get('option','')
+      if optionid:
+        models.newVote(id,optionid,self.ipaddress)
+        ok=True
+    if ok: self.redirect(app.root+'/r/'+id)
+    else : self.redirect(app.root+'/v/'+id)
 
 
 class ShowResults(app.request):
